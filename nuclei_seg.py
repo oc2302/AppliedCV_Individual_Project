@@ -22,8 +22,7 @@ plt.rcParams['image.cmap'] = 'gray'
 titlesize = 24
 
 #Example image-----------------------------------------
-input_image_file = ('https://data.kitware.com/api/v1/file/'
-                    '576ad39b8d777f1ecd6702f2/download')  
+input_image_file = ('https://data.kitware.com/api/v1/file/576ad39b8d777f1ecd6702f2/download')  
 
 im_input = skimage.io.imread(input_image_file)[:, :, :3]
 

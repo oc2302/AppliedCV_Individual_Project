@@ -18,15 +18,7 @@ im_input = skimage.io.imread(input_image_file)[:, :, :3]
 #_ = plt.title('Input Image', fontsize=16)
 
 
-
-
-
-
-# Load the image
-img = cv2.imread('image.jpg', 0) # 0 flag to read grayscale image
-
-# Apply Otsu thresholding
-ret, thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+ret, thresh = cv2.threshold(im_input, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
 # Display the thresholded image
 cv2.imshow('Otsu Threshold', thresh)

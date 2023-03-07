@@ -1,0 +1,51 @@
+#Mean-shift clustering implementation
+
+# Imports ------------------------------------------
+import histomicstk as htk
+
+import cv2
+import numpy as np
+import scipy as sp
+
+import skimage.io
+import skimage.measure
+import skimage.color
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+%matplotlib inline
+
+plt.rcParams['figure.figsize'] = 10, 10
+plt.rcParams['image.cmap'] = 'gray'
+titlesize = 24
+
+#Example image-----------------------------------------
+input_image_file = ('https://data.kitware.com/api/v1/file/576ad39b8d777f1ecd6702f2/download')  
+
+im_input = skimage.io.imread(input_image_file)[:, :, :3]
+
+#Reference Img 1
+ref_image_file = ('https://data.kitware.com/api/v1/file/57718cc28d777f1ecd8a883c/download')  
+
+im_reference = skimage.io.imread(ref_image_file)[:, :, :3]
+
+# Mean and STD calculation
+mean_ref, std_ref = htk.preprocessing.color_conversion.lab_mean_std(im_reference)
+
+# Reinhard color normalization
+im_nmzd = htk.preprocessing.color_normalization.reinhard(im_input, mean_ref, std_ref)
+
+
+
+
+spatial_radius = 10
+color_radius = 30
+max_pyramid_level = 2
+
+# Perform mean-shift clustering
+segmented_image = cv2.pyrMeanShiftFiltering(img_nmzd, spatial_radius, color_radius, max_pyramid_level)
+
+# Display the segmented image
+cv2.imshow('Mean-Shift Segmentation', segmented_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
